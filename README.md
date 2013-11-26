@@ -3,4 +3,8 @@ AES.coffee
 
 An AES encryption written in CoffeeScript
 
-Contain 3 modes:ECB CBC CRT
+Group length:     128bit
+
+Key length:       128bit
+
+Modes:            ECB CBC CRT
