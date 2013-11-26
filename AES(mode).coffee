@@ -1,82 +1,73 @@
-Encrypt_AES_ECB = () ->
-	message = document.form1.mingwen.value
-	message = enFill(message)
+Encrypt_AES_ECB = (plaintext) ->
+	plaintext = enFill(plaintext)
 	
 	ret = ''
-	for i in [0...message.length] by 16
-		ret += Encrypt_AES(message.slice(i,i+16), key)
+	for i in [0...plaintext.length] by 16
+		ret += Encrypt_AES(plaintext.slice(i,i+16), key)
 	
-	document.form1.miwen.value = ret
+	return ret
 	
-Decrypt_AES_ECB = () ->
-	message= document.form1.miwen.value
-	
+Decrypt_AES_ECB = (ciphertext) ->
 	ret = ''
-	for i in [0...message.length] by 16
-		ret += Decrypt_AES(message.slice(i,i+16), key)
+	for i in [0...ciphertext.length] by 16
+		ret += Decrypt_AES(ciphertext.slice(i,i+16), key)
 			
 	ret = deFill(ret)
-	document.form1.jiemihou.value = ret
+	return ret
 	
-Encrypt_AES_CBC = () ->
-	message = document.form1.mingwen.value
-	message = enFill(message)
+Encrypt_AES_CBC = (plaintext) ->
+	plaintext = enFill(plaintext)
 	
 	VI = "7777777777777777"
 	pre = VI
 	ret = ""
 	block = ""
-	for i in [0...message.length] by 16
-		block = message.slice(i,i+16)
+	for i in [0...plaintext.length] by 16
+		block = plaintext.slice(i,i+16)
 		pre = Encrypt_AES(Xor(pre, block), key)
 		ret += pre
 	
-	document.form1.miwen.value = ret
+	return ret
 	
-Decrypt_AES_CBC = () ->
-	message= document.form1.miwen.value
-	
+Decrypt_AES_CBC = (ciphertext) ->
 	VI = "7777777777777777"
 	pre = VI
 	ret = ""
 	block = ""
-	for i in [0...message.length] by 16
-		block = message.slice(i, i + 16)
+	for i in [0...ciphertext.length] by 16
+		block = ciphertext.slice(i, i + 16)
 		ret += Xor(pre, Decrypt_AES(block, key))
 		pre = block
 	
 	ret = deFill(ret)
-	document.form1.jiemihou.value = ret
+	return ret
 	
-Encrypt_AES_CTR = () ->
-	message = document.form1.mingwen.value
-	message = enFill(message)
+Encrypt_AES_CTR = (plaintext) ->
+	plaintext = enFill(plaintext)
 	
 	VI = "7777777777777777"
 	CT = VI
 	ret = ""
 	block = ""
-	for i in [0...message.length] by 16
-		block = message.slice(i, i + 16)
+	for i in [0...plaintext.length] by 16
+		block = plaintext.slice(i, i + 16)
 		ret += Xor(Encrypt_AES(CT, key), block)
 		CT = String(parseInt(CT, 10) + 1)
 	
-	document.form1.miwen.value = ret
+	return ret
 
-Decrypt_AES_CTR = () ->
-	message = document.form1.miwen.value
-	
+Decrypt_AES_CTR = (ciphertext) ->
 	VI = "7777777777777777"
 	CT = VI
 	ret = ""
 	block = ""
-	for i in [0...message.length] by 16
-		block = message.slice(i, i + 16)
+	for i in [0...ciphertext.length] by 16
+		block = ciphertext.slice(i, i + 16)
 		ret += Xor(Encrypt_AES(CT, key), block)
 		CT = String(parseInt(CT, 10) + 1)
 	
 	ret = deFill(ret)
-	document.form1.jiemihou.value = ret
+	return ret
 	
 enFill = (text) ->
 	fill = 16 - (text.length % 16)
