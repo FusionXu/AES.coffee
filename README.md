@@ -1,4 +1,4 @@
-Coffee.AES
+AES.coffee
 ==========
 
 An AES encryption written in CoffeeScript
