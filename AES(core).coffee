@@ -16,7 +16,6 @@ ExpandKey = (key) ->
 	kl = 16
 	ks = 16 * (10 + 1)
 	Rcon = 1
-	
 	for i in [kl...ks] by 4
 		temp = key.slice(i - 4, i)
 		if i % kl == 0
